@@ -110,3 +110,16 @@ public List<Integer> getRow(int rowIndex) {
 * 初始化数组，杨辉三角的第n行有n个元素，同时首个元素必定为1。
 * 初始化了数组，数组中的非0元素就组成了杨辉三角的第一行。
 * 根据杨辉三角的第一行开始构造第二行，然后循环，直到构造出杨辉三角的所求行。
+
+##7.Single Number
+问题描述：给出一个非空数组，只有一个元素只出现一次，别的元素都出现两次
+```java
+public int singleNumber(int[] nums) {
+    int result = 0;
+    for (int i : nums) {
+        result ^= i;
+    }
+    return result;
+}
+```
+解题思路：其余元素都出现两次，即可以使用按位异或操作^,两个相同的数异或等于0，而0异或任何数等于任何数本身。
