@@ -90,3 +90,23 @@ public static boolean isSym(TreeNode t1,TreeNode t2){
     }
 ```
 解法思路：循环嵌套调用基本的判断函数，输入为对称的两个节点L和R，如果L和R的值相等，那么为了对称，L的左子节点和R的右子节点必须相同，且L的右子节点必须和R的左子节点相同，继续调用函数即可。
+
+##6.Pascals-Triangle
+问题描述：输入numRow,输出杨辉三角的numRos+1行。
+```java
+public List<Integer> getRow(int rowIndex) {
+    Integer[] arr = new Integer[rowIndex + 1];
+    Arrays.fill(arr, 0);
+    arr[0] = 1;
+
+    for (int i = 1; i <= rowIndex; i++)
+        for (int j = i; j > 0; j--)
+            arr[j] = arr[j] + arr[j - 1];
+
+    return Arrays.asList(arr);
+    }
+```
+解题思路：如果使用先构造杨辉三角再输出指定行，耗时更多，所以采用直接构造杨辉三角的指定行。
+* 初始化数组，杨辉三角的第n行有n个元素，同时首个元素必定为1。
+* 初始化了数组，数组中的非0元素就组成了杨辉三角的第一行。
+* 根据杨辉三角的第一行开始构造第二行，然后循环，直到构造出杨辉三角的所求行。
