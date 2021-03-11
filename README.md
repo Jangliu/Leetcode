@@ -143,3 +143,19 @@ public boolean hasCycle(ListNode head) {
 * 再判断是否头节点就是循环的圈。
 * 接下来，假设head没有在圈里，那么head将被抛开，此节点从链表中断开。
 * 最后假设head是在循环中的，那么相当于把循环的圈断开了，head指向自身，又因为head在循环中，那么必定在此循环的圈中有一个节点指向head。如此嵌套调用hasCycle()函数，即可。
+
+##9.Two Sum II - Input array is sorted
+问题描述：给出一个升序的数组，从数组中找到两个数的和等于给定的目标值。返回两数的下标+1；
+```java
+public int[] twoSum(int[] numbers, int target) {
+    int l = 0, r = numbers.length - 1;
+    while (numbers[l] + numbers[r] != target) {
+        if (numbers[l] + numbers[r] > target)
+            r--;
+        else
+            l++;
+    }
+    return new int[] { l + 1, r + 1 };
+    }
+```
+解题思路：从一首（l）一尾（r）开始，因为数组是升序的，如果首尾的值相加大于目标值就说明应该r=r-1,否则的话就应该l=l+1。
