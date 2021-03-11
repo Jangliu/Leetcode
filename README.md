@@ -123,3 +123,23 @@ public int singleNumber(int[] nums) {
 }
 ```
 解题思路：其余元素都出现两次，即可以使用按位异或操作^,两个相同的数异或等于0，而0异或任何数等于任何数本身。
+
+##8.Linked List Cycle
+问题描述：给出一个链表的head，判断在这个链表中是否有循环，即在这个链表中有一个圈。
+```java
+public boolean hasCycle(ListNode head) {
+    if (head == null || head.next == null)
+        return false;
+    if (head.next == head)
+        return true;
+    ListNode nextNode = head.next;
+    head.next = head;
+    boolean isCycle = hasCycle(nextNode);
+    return isCycle;
+}
+```
+解法思路：
+* 首先判断此链表是单链表非循环的情况，即有尾节点。
+* 再判断是否头节点就是循环的圈。
+* 接下来，假设head没有在圈里，那么head将被抛开，此节点从链表中断开。
+* 最后假设head是在循环中的，那么相当于把循环的圈断开了，head指向自身，又因为head在循环中，那么必定在此循环的圈中有一个节点指向head。如此嵌套调用hasCycle()函数，即可。
