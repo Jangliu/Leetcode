@@ -158,4 +158,24 @@ public int[] twoSum(int[] numbers, int target) {
     return new int[] { l + 1, r + 1 };
     }
 ```
-解题思路：从一首（l）一尾（r）开始，因为数组是升序的，如果首尾的值相加大于目标值就说明应该r=r-1,否则的话就应该l=l+1。
+解题思路：从一首（l）一尾（r）开始，因为数组是升序的，如果首尾的值相加大于目标值就说明应该r=r-1,否则的话就应该l=l+
+
+##10.Marority Element
+问题描述：给出一个数组，长度为n，返回其中出现超过[n/2]次的元素即多数元素。这里的超过应该是大于，不包含等于。
+```java
+public int majorityElement3(int[] nums) {
+    int count=0, candidate = 0;
+    for (int num: nums) {
+        if (count==0)
+            candidate = num;
+        if (num!=candidate)
+            count--;
+        else
+            count++;
+    }
+    return candidate;
+}
+```
+解题思路：Moore voting algorithm。假设多数元素为M，其他元素为N。这个算法的核心在于，每次从数组中删除两个不同的数，那么最后剩下来的就一定是多数元素。同理，可以将此算法推广到次数超过1/K次的元素。
+在本题的代码中，会首先找到一个出现至少两次的数a，接下来如果再次遇到a，那么count++,如果没有遇到a则count--，消耗一个a的数量来抵消遇到的不同的数，当a被消耗完就开始寻找新一个重复的数。
+值得注意的是，这个算法能成立的前提是已知存在一个多数元素，出现的次数超过[n/2]。
