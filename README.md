@@ -196,3 +196,33 @@ public int reverseBits(int n) {
 * 循环开始，首先让n与1（0000·····1）进行按位与操作，这样得到的是n的最后一位，其余全0。
 * 然后再用上一步得到的数与rest左移一位（用以保存上一次循环获得的数）进行按位或。这样就将n的最后一位给了rest。
 * n右移一位。因为n是右移，而rest是左移，这样就可以获得n翻转二进制形式。
+
+
+##12.Count Primes
+问题描述：找出小于n的质数的数量。
+```java
+public static int countPrimes(int n) {
+    if (n < 3)
+        return 0;
+    boolean[] f = new boolean[n];
+    int count = n / 2;
+    for (int i = 3; i * i < n; i += 2) {
+        if (f[i])
+            continue;
+
+        for (int j = i * i; j < n; j += 2 * i) {
+            if (!f[j]) {
+                --count;
+                f[j] = true;
+            }
+        }
+    }
+        return count;
+}
+```
+解题思路：
+* 小于n的数里最多只有n/2个质数，因为偶数都是合数。
+* 从3开始，假设某个数是合数，那么它一定可以分解为两个数的乘积
+* 在此算法中已经把所有偶数排除了，所以不考虑偶数作为乘积的合数
+* 比如当i=3时，排除的是3x3 3x4 3x5 3x7.....,当i=5时，排除的是 5x5 5x7 5x9.....
+* 排除完之后剩下的就是质数的数量。
