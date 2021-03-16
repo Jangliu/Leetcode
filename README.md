@@ -226,3 +226,20 @@ public static int countPrimes(int n) {
 * 在此算法中已经把所有偶数排除了，所以不考虑偶数作为乘积的合数
 * 比如当i=3时，排除的是3x3 3x4 3x5 3x7.....,当i=5时，排除的是 5x5 5x7 5x9.....
 * 排除完之后剩下的就是质数的数量。
+  
+## 13. Valid Anagram
+问题描述，给出两个字符串s和t，判断他们是否为相同字母异序字符串（即两个字符串拥有的字母相同（字母的种类和个数））。
+```java
+public boolean isAnagram(String s, String t) {
+    int[] alphabet = new int[26];
+    for (int i = 0; i < s.length(); i++)
+        alphabet[s.charAt(i) - 'a']++;
+    for (int i = 0; i < t.length(); i++)
+        alphabet[t.charAt(i) - 'a']--;
+    for (int i : alphabet)
+        if (i != 0)
+            return false;
+    return true;
+    }
+```
+解题思路：小写字母一共26个，所以只需要先记录s中每个字母出现的个数，当t中出现一个就减一个，最后看记录表是否全0。
