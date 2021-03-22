@@ -243,3 +243,20 @@ public boolean isAnagram(String s, String t) {
     }
 ```
 解题思路：小写字母一共26个，所以只需要先记录s中每个字母出现的个数，当t中出现一个就减一个，最后看记录表是否全0。
+
+##14. Minimum Moves to Equal Array Elements
+问题描述：给出一个整数数组，其中一共有n个元素，给出最少操作步数，使所有元素相等。在一次操作中，需要将数组中n-1个元素都加1.
+```java
+public int minMoves(int[] nums) {
+    if (nums.length <= 1)
+        return 0;
+    long min = (long) nums[0];
+    long sum = 0;
+    for (int i = 0; i < nums.length; i++) {
+        sum += (long) nums[i];
+        min = Math.min(min, nums[i]);
+    }
+    return (int) (sum - min * nums.length);
+}
+```
+解题思路：操作中的n-1个元素加一，反过来可以理解为只有一个元素减1.这样的话就可以统计这个原数组的和，与原数组的最小值。最后的结果是原数组的所有元素都等于最小值。那么：移动步数=原数组的和-最小值*数组长度。
