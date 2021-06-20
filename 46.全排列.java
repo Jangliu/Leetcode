@@ -9,32 +9,28 @@ import java.util.List;
 
 // @lc code=start
 class Solution {
-    public static List<List<Integer>> permute(int[] nums) {
-        List<List<Integer>> res = new ArrayList<>();
-        List<Integer> numbers = new ArrayList<Integer>();
-        for (int n : nums) {
-            numbers.add(n);
-        }
-        List<Integer> combine = new ArrayList<>();
-        permuteDfs(res, combine, numbers);
-        return res;
-
+    public List<List<Integer>> permute(int[] nums) {
+        List<List<Integer>> list = new ArrayList<>();
+        List<Integer> temp = new ArrayList<>();
+        boolean[] isVisited = new boolean[nums.length];
+        //通过维护isVisited这个数组来判断哪些数字已经被用过了，这样可以加快速率
+        permuteDfs(list, temp, nums, isVisited);
+        return list;
     }
 
-    public static void permuteDfs(List<List<Integer>> res, List<Integer> combine, List<Integer> numbers) {
-        if (numbers.size() == 0) {
-            List<Integer> path = new ArrayList<>();
-            path.addAll(combine);
-            res.add(path);
+    private void permuteDfs(List<List<Integer>> list, List<Integer> temp, int[] nums, boolean[] isVisited) {
+        if (temp.size() == nums.length) {
+            list.add(new ArrayList<>(temp));
             return;
         }
-        for (int i = 0; i < numbers.size(); i++) {
-            combine.add(numbers.get(i));
-            List<Integer> temp = new ArrayList<>();
-            temp.addAll(numbers);
-            temp.remove(i);
-            permuteDfs(res, combine, temp);
-            combine.remove(combine.size() - 1);
+        for (int i = 0; i < nums.length; i++) {
+            if (isVisited[i])
+                continue;
+            isVisited[i] = true;
+            temp.add(nums[i]);
+            permuteDfs(list, temp, nums, isVisited);
+            temp.remove(temp.size() - 1);
+            isVisited[i] = false;
         }
     }
 }
