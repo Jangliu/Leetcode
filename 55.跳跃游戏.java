@@ -1,0 +1,26 @@
+/*
+ * @lc app=leetcode.cn id=55 lang=java
+ *
+ * [55] 跳跃游戏
+ */
+
+// @lc code=start
+public class Solution {
+    public boolean canJump(int[] nums) {
+        //贪心算法，看最远能到哪里
+        //如果最远到不了边界，就返回false
+        int n = nums.length;
+        int rightmost = 0;
+        for (int i = 0; i < n; ++i) {
+            if (i <= rightmost) {
+                rightmost = Math.max(rightmost, i + nums[i]);
+                if (rightmost >= n - 1) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+}
+// @lc code=end
+
