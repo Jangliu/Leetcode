@@ -13,10 +13,8 @@ class Solution {
         if (nums.length == 2) {
             return Math.max(nums[0], nums[1]);
         }
-        int res = 0;
-        int lastMax = 0;
-        res = Math.max(nums[0], nums[1]);
-        lastMax = nums[0];
+        int res = Math.max(nums[0], nums[1]);
+        int lastMax = nums[0];
         for (int i = 2; i < nums.length; i++) {
             nums[i] += lastMax;
             res = Math.max(res, nums[i]);
