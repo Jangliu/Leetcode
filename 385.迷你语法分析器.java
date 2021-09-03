@@ -38,40 +38,34 @@ import java.util.List;
  */
 class Solution {
     public NestedInteger deserialize(String s) {
-        List<Integer> front = new ArrayList<>();
-        List<Integer> back = new ArrayList<>();
-        NestedInteger last = null;
-        for(int i=0;i<s.length();i++){
-            if(s.charAt(i)=='['){
-                front.add(i);
-            }
-            if(s.charAt(i)==']'){
-                back.add(i);
+        List<NestedInteger> list = new ArrayList<>();
+        char[] c = s.toCharArray();
+        if(c[0]!='['){
+            return NestedInteger(Integer.valueOf(s));
+        }
+        int i =0;
+        while(i<c.length){
+            if(c[i]=='['){
+                NestedInteger temp = new NestedInteger();
+                list.add(temp);
+                int j =i+1;
+                while(c[j]!='['&&c[j]!=']'){
+                    j++;
+                }
+                String num = s.substring(i + 1, j);
+                String[] nums = num.split(",");
+                for (String n : nums) {
+                    if (n.length() > 0) {
+                        list.get(list.size(-1)).setInteger(Integer.valueOf(n));
+                    }
+                }
+                if(c[j]==']'){
+                    list.get(list.size()-2).add(list.get(list.size()-1));
+                    list.remove(list.size()-1);
+                }
             }
         }
-        for(int i=front.size()-1;i>=0;i--){
-            int left = front.get(i);
-            int right;
-            if(i==front.size()-1){
-                right = back.get(back.size()-1-i);
-            }
-            else{
-                right = front.get(i+1);
-            }
-            String[] words = s.substring(left+1, right).split(",");
-            NestedInteger temp = new NestedInteger();
-            for(String w:words){
-                temp.setInteger(Integer.valueOf(w));
-            }
-            if(last!=null){
-                last.add(temp);
-            }
-            last=temp;
-        }
-        if(last==null){
-            last.setInteger(Integer.valueOf(s));
-        }
-        return last;
+
     }
 }
 // @lc code=end
