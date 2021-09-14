@@ -4,6 +4,9 @@
  * [1] 两数之和
  */
 
+import java.util.HashMap;
+import java.util.Map;
+
 // @lc code=start
 class Solution {
     public int[] twoSum(int[] nums, int target) {
